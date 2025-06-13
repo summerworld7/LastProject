@@ -5,12 +5,10 @@ import io
 import re
 
 st.title("📈 일차함수 그래프 생성기")
-st.write("아래 입력창에 일차함수 식을 입력하세요. (예: `y = 2x + 1`)")
+st.write("일차함수 식을 입력하세요 (예: `y = 2x + 1`)")
 
-# 함수 입력
 equation = st.text_input("일차함수 식 입력", value="y = 2x + 1")
 
-# 식 파싱 함수
 def parse_equation(equation):
     equation = equation.replace(" ", "")
     match = re.match(r"y=([+-]?\d*)(x)([+-]?\d+)?", equation)
@@ -24,25 +22,37 @@ def parse_equation(equation):
 a, b = parse_equation(equation)
 
 if a is not None:
-    # x, y 값 계산
     x = np.linspace(-10, 10, 400)
     y = a * x + b
 
-    # 그래프 생성
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.plot(x, y, label=f"y = {a}x + {b}", color="blue")
-    ax.axhline(0, color='black', linewidth=0.8)
-    ax.axvline(0, color='black', linewidth=0.8)
-    ax.grid(True, linestyle='--', linewidth=0.5)
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
-    ax.set_title("일차함수 그래프")
-    ax.legend()
+    ax.axhline(0, color='black', linewidth=1)
+    ax.axvline(0, color='black', linewidth=1)
+    ax.set_xlim(-10, 10)
+    ax.set_ylim(-10, 10)
 
-    # Streamlit에 출력
+    # 눈금 간격을 1로 고정
+    ax.set_xticks(np.arange(-10, 11, 1))
+    ax.set_yticks(np.arange(-10, 11, 1))
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.grid(True, linestyle='--', linewidth=0.5)
+
+    # x절편, y절편 계산
+    if a != 0:
+        x_intercept = -b / a
+        if -10 <= x_intercept <= 10:
+            ax.plot(x_intercept, 0, 'ro')
+            ax.text(x_intercept, 0.5, f"({x_intercept:.1f}, 0)", ha='center', color='red')
+    if -10 <= b <= 10:
+        ax.plot(0, b, 'go')
+        ax.text(0.5, b, f"(0, {b})", va='center', color='green')
+
+    ax.set_title("일차함수 그래프")
     st.pyplot(fig)
 
-    # 이미지 다운로드용 버퍼
+    # 이미지 다운로드
     buf = io.BytesIO()
     fig.savefig(buf, format="png", dpi=150, bbox_inches="tight")
     buf.seek(0)
