@@ -26,7 +26,7 @@ if a is not None:
     y = a * x + b
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    ax.plot(x, y, label=f"y = {a}x + {b}", color="blue")
+    ax.plot(x, y, label=f"y = {a}x + {b}", color="black")
 
     # 축 교차 (0,0)에서
     ax.spines['left'].set_position('zero')
@@ -54,7 +54,7 @@ if a is not None:
     if -5 <= b <= 5:
         ax.text(0.4, b, f"{int(round(b))}", ha='left', va='center', color='black', fontsize=10)
 
-    ax.set_title("일차함수 그래프")
+    ax.set_title("linear function graph")
     st.pyplot(fig)
 
     # 다운로드용 이미지 버퍼
