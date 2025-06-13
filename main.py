@@ -48,11 +48,11 @@ if a is not None:
     if a != 0:
         x_intercept = -b / a
         if -5 <= x_intercept <= 5:
-            ax.text(x_intercept, -0.4, f"{int(round(x_intercept))}", ha='center', va='top', color='red', fontsize=10)
+            ax.text(x_intercept, -0.4, f"{int(round(x_intercept))}", ha='center', va='top', color='black', fontsize=10)
 
     # y절편
     if -5 <= b <= 5:
-        ax.text(0.4, b, f"{int(round(b))}", ha='left', va='center', color='green', fontsize=10)
+        ax.text(0.4, b, f"{int(round(b))}", ha='left', va='center', color='black', fontsize=10)
 
     ax.set_title("일차함수 그래프")
     st.pyplot(fig)
