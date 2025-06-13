@@ -53,4 +53,3 @@ if a is not None:
 else:
     st.error("올바른 형식의 일차함수 식을 입력하세요. 예: `y = -3x + 2`")
 
-
