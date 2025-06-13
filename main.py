@@ -28,7 +28,13 @@ if a is not None:
     fig, ax = plt.subplots(figsize=(6, 6))
     ax.plot(x, y, label=f"y = {a}x + {b}", color="blue")
 
-    # 범위 및 눈금 설정
+    # 축 교차 (0,0)에서
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    # 눈금 설정
     ax.set_xlim(-5, 5)
     ax.set_ylim(-5, 5)
     ax.set_aspect('equal', adjustable='box')
@@ -38,21 +44,15 @@ if a is not None:
     ax.set_yticklabels([])
     ax.grid(True, linestyle='--', linewidth=0.5)
 
-    # 좌표축 (화살표 포함)
-    ax.annotate("", xy=(5.2, 0), xytext=(-5.2, 0),
-                arrowprops=dict(arrowstyle="->", color="black", linewidth=1.2))
-    ax.annotate("", xy=(0, 5.2), xytext=(0, -5.2),
-                arrowprops=dict(arrowstyle="->", color="black", linewidth=1.2))
-
-    # x절편 텍스트 (a ≠ 0)
+    # x절편
     if a != 0:
         x_intercept = -b / a
         if -5 <= x_intercept <= 5:
-            ax.text(x_intercept, -0.4, f"{x_intercept:.2f}", ha='center', va='top', color='red', fontsize=10)
+            ax.text(x_intercept, -0.4, f"{int(round(x_intercept))}", ha='center', va='top', color='red', fontsize=10)
 
-    # y절편 텍스트
+    # y절편
     if -5 <= b <= 5:
-        ax.text(0.4, b, f"{b:.2f}", ha='left', va='center', color='green', fontsize=10)
+        ax.text(0.4, b, f"{int(round(b))}", ha='left', va='center', color='green', fontsize=10)
 
     ax.set_title("일차함수 그래프")
     st.pyplot(fig)
