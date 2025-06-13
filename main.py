@@ -22,32 +22,36 @@ def parse_equation(equation):
 a, b = parse_equation(equation)
 
 if a is not None:
-    x = np.linspace(-10, 10, 400)
+    x = np.linspace(-5, 5, 400)
     y = a * x + b
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(6, 6))
     ax.plot(x, y, label=f"y = {a}x + {b}", color="blue")
+
+    # 축 설정
     ax.axhline(0, color='black', linewidth=1)
     ax.axvline(0, color='black', linewidth=1)
-    ax.set_xlim(-10, 10)
-    ax.set_ylim(-10, 10)
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+    ax.set_aspect('equal', adjustable='box')
 
-    # 눈금 간격을 1로 고정
-    ax.set_xticks(np.arange(-10, 11, 1))
-    ax.set_yticks(np.arange(-10, 11, 1))
+    # 눈금 간격 1로 고정, 숫자 라벨 제거
+    ax.set_xticks(np.arange(-5, 6, 1))
+    ax.set_yticks(np.arange(-5, 6, 1))
     ax.set_xticklabels([])
     ax.set_yticklabels([])
+
     ax.grid(True, linestyle='--', linewidth=0.5)
 
-    # x절편, y절편 계산
+    # x절편 텍스트 표시 (a ≠ 0)
     if a != 0:
         x_intercept = -b / a
-        if -10 <= x_intercept <= 10:
-            ax.plot(x_intercept, 0, 'ro')
-            ax.text(x_intercept, 0.5, f"({x_intercept:.1f}, 0)", ha='center', color='red')
-    if -10 <= b <= 10:
-        ax.plot(0, b, 'go')
-        ax.text(0.5, b, f"(0, {b})", va='center', color='green')
+        if -5 <= x_intercept <= 5:
+            ax.text(x_intercept, -0.5, "x절편", ha='center', va='top', color='red')
+
+    # y절편 텍스트 표시
+    if -5 <= b <= 5:
+        ax.text(0.5, b, "y절편", va='center', ha='left', color='green')
 
     ax.set_title("일차함수 그래프")
     st.pyplot(fig)
